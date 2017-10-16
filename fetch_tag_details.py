@@ -2,10 +2,8 @@ def fetch_tag_details(song_location,song_name,tag_output_file,delimiter):
     import mutagen
 
     song_file = song_location+song_name
-    #delimiter = '|'
-
     song_tags = mutagen.File(song_file)
-
+	#Fetches all the required tas from an mp3 file
     album = song_tags['TALB'].text[0]
     artist = song_tags['TPE1'].text[0]
     track_name = song_tags['TCOM'].text[0]
@@ -28,7 +26,7 @@ def fetch_tag_details(song_location,song_name,tag_output_file,delimiter):
     tag_data = album + delimiter + artist + delimiter + track_name + delimiter + str(
         year) + delimiter + genre + delimiter + track_number + \
                delimiter + title + delimiter + song_writer + delimiter + str(length_human_read)
-
+	#writing tag details into a flat file for further processing
     f = open(tag_output_file,'a')
     #f.write(header_data + '\n')
     f.write(tag_data + '\n')
